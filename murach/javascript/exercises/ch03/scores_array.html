@@ -9,6 +9,7 @@
         var scores = [];
         var total = 0;
         var show = "The test scores:\n";
+        var highestScore = 0;
 
         //first use a do-while loop to get scores from user
         do {
@@ -28,11 +29,17 @@
         for (var i = 0; i < scores.length; i++) {
             total = total + scores[i];       //both are numbers so adds
             show = show + scores[i] + "\n";  //strings & numbers so concatenates
+            highestScore = (highestScore > scores[i])? highestScore : scores[i];
         }
 
         //then calculate the average and display
         average = parseInt(total/scores.length);
-        alert(show + "\nAverage score is " + average);
+        
+        //for (var i = 0; i < scores.length; i++){
+        //	highestScore = (highestScore > scores[i])? highestScore : scores[i];
+        //}
+        alert(show + "\nAverage score is " + average + 
+        		"\nHighest score is " + highestScore);
     </script>
 </head>
 <body>
