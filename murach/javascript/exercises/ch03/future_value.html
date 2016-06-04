@@ -5,31 +5,50 @@
     <title>Future Value Application</title>
     <script>
 		var futureValue;
+		var repeat = "y";
 		
-		// get user entries
-		var investment = prompt("Enter investment amount as xxxxx.xx", 10000);
-		investment = parseFloat(investment);
-		var rate = prompt("Enter interest rate as xx.x", 7.5);
-		rate = parseFloat(rate);
-		var years = prompt("Enter number of years", 10);
-		years = parseInt(years);
-		
-		// calulate future value
-		futureValue = investment;
-		for (var i = 1; i <= years; i++ ) {
-			futureValue = futureValue + (futureValue * rate / 100);
-		}
-		futureValue = parseInt(futureValue);	
+		do {
+			// get user entries
+			do {
+				var investment = prompt("Enter investment amount as xxxxx.xx", 10000);
+				investment = parseFloat(investment);
+				if ( isNaN(investment))
+					alert("Investment must be a number");
+			} while ( isNaN(investment) );
+			
+			do {
+				var rate = prompt("Enter interest rate as xx.x", 7.5);
+				rate = parseFloat(rate);
+				if (rate <= 0 || rate >= 15)
+					alert("Interest rate must be greater than zero and less than 15");
+			} while (rate <= 0 || rate >= 15);
+			
+			var years = prompt("Enter number of years", 10);
+			years = parseInt(years);
+
+			
+			// calulate future value
+			futureValue = investment;
+			futureValue = parseInt(futureValue);			
+			document.write("Investment amount = " + investment);
+			document.write(" Interest rate = " + rate);
+			document.write(" Years = " + years + "<br>");
+			
+			for (var i = 1; i <= years; i++ ) {
+				document.write("Year " + i + " Interest = " + (futureValue * rate / 100));
+				futureValue = futureValue + (futureValue * rate / 100);
+				document.write(" Value = " + futureValue + "<br>" );
+			}
+			document.write("<br><br>");
+			
+			repeat = prompt("Enter y to continue: ", "y");
+
+		}	
+		while(repeat == "y");
     </script>
 </head>
 <body>
     <main>
-    	<script>
-			document.write("Investment amount = " + investment);
-			document.write(" Interest rate = " + rate);
-			document.write(" Years = " + years);
-			document.write(" Future Value is " + futureValue + "<br><br>");
-        </script>
         Thanks for using the Future Value application.
     </main>
 </body>
