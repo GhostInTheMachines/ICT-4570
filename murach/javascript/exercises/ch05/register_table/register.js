@@ -8,6 +8,7 @@ var processEntries = function() {
     var msg = "Please review your entries and complete all required fields";
     var email = $("email_address").value;
     var phone = $("phone").value;
+    var phone2 = $("phone2").value;
     var country = $("country").value;
     var contact = "Text";
     if ($("email").checked) { contact = "Email"; }
@@ -21,6 +22,10 @@ var processEntries = function() {
 	if (phone == "") {
         phone = required;         
         header = msg;
+    }
+    if (phone2 == "") {
+    phone2 = required;         
+    header = msg;
     }
 	if (country == "") {
         country = required;         

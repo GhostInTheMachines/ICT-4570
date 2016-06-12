@@ -1,0 +1,15 @@
+body {
+	font-family:		Arial, Helvetica, sans-serif;
+	background-color:	white;
+	margin:				0 auto;
+	width:				670px;
+}
+
+h1 {
+	color:#000000;
+}
+
+p {
+	font-family:"Century Gothic", Helvetica;
+	font-size: 1em;
+}
