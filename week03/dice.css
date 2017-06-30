@@ -25,7 +25,7 @@ fieldset {
     margin-bottom: 1em;
 }
 #turn {
-    display: none;
+	display: none;
 }
 #turn.open {
     display: block;
