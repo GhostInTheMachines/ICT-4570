@@ -43,7 +43,7 @@ var holdTurn = function() {
 	var score;
 	var total = parseInt($("total").value);
 	if ($("current").firstChild.nodeValue === $("player1").value) {
-		score.value = $("score1");
+		score = $("score1");
 	} else { score = $("score2"); }
 	score.value = parseInt(score.value) + total;
 	if (score.value >= 100) {
