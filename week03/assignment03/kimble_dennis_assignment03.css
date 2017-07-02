@@ -1,0 +1,29 @@
+/*
+*  Name: 		Dennis Kimble
+*  Filename: 	kimble_dennis_assignment02.css
+*/
+
+
+body {
+	margin: 0 auto;
+	width: 670px;
+	background-color: #61F3DA;
+}
+main {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #61F3DA;
+	margin: 0 auto;
+	width: 670px;
+	border: 3px double #0C1FB0;
+	padding: 0 2em 1em;
+}
+h1 {
+	color: #000000;
+}
+label {
+	width: 5em;
+	text-align: right;
+}
+span {
+	color: red;
+}
