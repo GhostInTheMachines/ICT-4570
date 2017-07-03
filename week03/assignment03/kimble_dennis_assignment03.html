@@ -2,14 +2,6 @@
 <!--
 	Name:  		Dennis Kimble
 	Filename: kimble_dennis_assignment03.html
-	Build a simple form containing: 
-		Inputs for at least two candidate names, candidate parties, 
-		an "as-of" date,
-		places for raw vote counts.
-		Also put on the form two output locations for total votes, 
-		percentages for each candidate, which will be reported with 1 decimal place.
-		The form should also have a button entitled Calculate which will tie to a function to read the inputs and place the output results.
-	
 -->
 <html>
 <head>
@@ -24,53 +16,53 @@
     <fieldset>
       <legend>Candidates</legend>
       <label>Candidate 1</label>
-      <input type="text">
+      <input id="candidate1" type="text">
       <select>
         <option>Democratic</option>
         <option>Republican</option>
         <option>Independent</option>
-      </select>
+      </select><span id="candidate1_error" class="error_message">*</span>
       <br>
       <label>Candidate 2</label>
-      <input type="text">
+      <input id="candidate2" type="text">
       <select>
         <option>Democratic</option>
         <option>Republican</option>
         <option>Independent</option>
-      </select>
+      </select><span id="candidate2_error" class="error_message">*</span>
       <br>
       <label>Candidate 3</label>
-      <input type="text">
+      <input id="candidate3" type="text">
       <select>
         <option>Democratic</option>
         <option>Republican</option>
         <option>Independent</option>
-      </select>
+      </select><span id="candidate3_error" class="error_message">*</span>
     </fieldset>
     <fieldset>
       <legend>Votes</legend>
       <label>Votes for Candidate 1</label>
-      <input type="text">
+      <input id="votes1" type="text"><span id="vote1_error" class="error_message">*</span>
       <br>
       <label>Votes for Candidate 2</label>
-      <input type="text">
+      <input id="votes2" type="text"><span id="vote2_error" class="error_message">*</span>
       <br>
       <label>Votes for Candidate 3</label>
-      <input type="text">
+      <input id="votes3" type="text"><span id="vote3_error" class="error_message">*</span>
     </fieldset>
     <fieldset>
       <legend>Current Results</legend>
       <label>As of</label>
-      <input type="text">
-      <p>Total Votes counted<span></span></p>
-      <p>Percentage<span></span></p>
-      <p>Percentage<span></span></p>
-      <p>Percentage<span></span></p>
+      <input id="date_at_click" type="text">
+      <p>Total Votes counted&nbsp;<span id="total_votes">&nbsp;</span></p>
+      <p><span id="candidate_one">&nbsp;</span>&nbsp;Percentage&nbsp;<span id="percent1">&nbsp;</span></p>
+      <p><span id="candidate_two">&nbsp;</span>&nbsp;Percentage&nbsp;<span id="percent2">&nbsp;</span></p>
+      <p><span id="candidate_three">&nbsp;</span>&nbsp;Percentage&nbsp;<span id="percent3">&nbsp;</span></p>
       <p><span></span></p>
     </fieldset>
   </form>
 </main>
-<button onClick="returnPercentArray([10,20,70])" type="button">Calculate</button>
+<button id="calculate" onClick="processVotes()" type="button">Calculate</button>
 <script src="kimble_dennis_assignment03.js"></script>
 </body>
 </html>
