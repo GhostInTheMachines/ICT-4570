@@ -16,7 +16,7 @@
     <fieldset>
       <legend>Candidates</legend>
       <label>Candidate 1</label>
-      <input id="candidate1" type="text">
+      <input class="candidate_name" id="candidate1" type="text">
       <select>
         <option>Democratic</option>
         <option>Republican</option>
@@ -24,7 +24,7 @@
       </select><span id="candidate1_error" class="error_message">*</span>
       <br>
       <label>Candidate 2</label>
-      <input id="candidate2" type="text">
+      <input class="candidate_name" id="candidate2" type="text">
       <select>
         <option>Democratic</option>
         <option>Republican</option>
@@ -32,7 +32,7 @@
       </select><span id="candidate2_error" class="error_message">*</span>
       <br>
       <label>Candidate 3</label>
-      <input id="candidate3" type="text">
+      <input class="candidate_name" id="candidate3" type="text">
       <select>
         <option>Democratic</option>
         <option>Republican</option>
@@ -42,22 +42,28 @@
     <fieldset>
       <legend>Votes</legend>
       <label>Votes for Candidate 1</label>
-      <input id="votes1" type="text"><span id="vote1_error" class="error_message">*</span>
+      <input class="input_vote" id="votes1" type="text">
+      		<span id="vote1_error" class="error_message">*</span>
       <br>
       <label>Votes for Candidate 2</label>
-      <input id="votes2" type="text"><span id="vote2_error" class="error_message">*</span>
+      <input class="input_vote" id="votes2" type="text">
+      		<span id="vote2_error" class="error_message">*</span>
       <br>
       <label>Votes for Candidate 3</label>
-      <input id="votes3" type="text"><span id="vote3_error" class="error_message">*</span>
+      <input class="input_vote" id="votes3" type="text">
+      		<span id="vote3_error" class="error_message">*</span>
     </fieldset>
     <fieldset>
       <legend>Current Results</legend>
       <label>As of</label>
       <input id="date_at_click" type="text">
       <p>Total Votes counted&nbsp;<span id="total_votes">&nbsp;</span></p>
-      <p><span id="candidate_one">&nbsp;</span>&nbsp;Percentage&nbsp;<span id="percent1">&nbsp;</span></p>
-      <p><span id="candidate_two">&nbsp;</span>&nbsp;Percentage&nbsp;<span id="percent2">&nbsp;</span></p>
-      <p><span id="candidate_three">&nbsp;</span>&nbsp;Percentage&nbsp;<span id="percent3">&nbsp;</span></p>
+      <p><span class="result_name" id="results_one">&nbsp;</span>&nbsp;Percentage&nbsp;
+      		<span class="percent_of_total" id="percent1">&nbsp;</span></p>
+      <p><span class="result_name" id="results_two">&nbsp;</span>&nbsp;Percentage&nbsp;
+      		<span class="percent_of_total" id="percent2">&nbsp;</span></p>
+      <p><span class="result_name" id="results_three">&nbsp;</span>&nbsp;Percentage&nbsp;
+      		<span class="percent_of_total" id="percent3">&nbsp;</span></p>
       <p><span></span></p>
     </fieldset>
   </form>
