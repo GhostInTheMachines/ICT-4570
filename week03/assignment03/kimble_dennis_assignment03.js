@@ -39,6 +39,66 @@ function toISODate(date) { // yyyy-mm-dd
   return "" + yyyy + "-" + mm + "-" + dd;
 };
 
+// Validation functions
+// Numeric checks
+var isValidNumber = function(theNumber) {
+	var isValid = true;
+	if (isNaN(theNumber)) isValid = false;
+	
+	return isValid;
+};
+
+// run validation 
+var validateInputs = function() { 
+	var isValid = true;
+	var errorMessageIDs = $idArray('error_message');
+	var voteIDs			= $idArray('input_vote');
+	var candidateIDs	= $idArray('candidate_name');
+	
+	// errorMessageIDs[idIndex].firstChild.nodeValue = "Must not be a number";
+	
+	// clear any previous mesages
+	for ( var x = 0; x < errorMessageIDs.length; x++ ) {
+		errorMessageIDs[x].firstChild.nodeValue = "*";
+	}
+	
+	// Check that name field is not blank
+	for (var x = 0; x < candidateIDs.length; x++) {
+		if (candidateIDs[x]) {
+			var index = (x + 1);
+			var idIndex = "candidate" + index + "_error";
+			if (candidateIDs[x].value === "") {
+				errorMessageIDs[idIndex].firstChild.nodeValue = "Must not be blank";
+				isValid = false;
+			}
+		} else window.open("fatal_error.html");
+	}
+	
+	// check valid votes
+	for ( var y = 0; y < voteIDs.length; y++) {
+		if (voteIDs[y] ) {
+			var index2 = (y + 1);
+			var idIndex2 = "vote" + index2 + "_error";
+			if ( isNaN(voteIDs[y].value) && (voteIDs[y].value !== "") ) {
+				errorMessageIDs[idIndex2].firstChild.nodeValue = "Must be a number";
+				isValid = false;
+			}
+			if (voteIDs[y].value === "") {
+				errorMessageIDs[idIndex2].firstChild.nodeValue = "Must not be blank";
+				isValid = false;
+			}
+			if (voteIDs[y].value <= 0 && voteIDs[y].value !== "") {
+				errorMessageIDs[idIndex2].firstChild.nodeValue = "Must be greater than zero";
+				isValid = false;
+			}
+				
+		} else window.open("fatal_error.html");
+
+
+	}
+	return isValid;
+};
+
 // Capitalize first character of keyValue
 var capFirst = function(lowerCaseWord) {
 
@@ -135,9 +195,14 @@ var outputResults = function() {
 
 var processVotes = function() {
 	
+	
+	
 	// Set date box after each submit
-	setDate();
-	outputResults();
+	if (validateInputs()){
+		setDate();
+		outputResults();
+	}
+
 
 };
 
