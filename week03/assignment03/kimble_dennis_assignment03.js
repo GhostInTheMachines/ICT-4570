@@ -2,7 +2,7 @@
 *	Filename: kimble_dennis_assignment03.js
 */
 "use_strict";
-// variables for date functions
+// Variables for date functions
 var today = new Date();
 var isodate = toISODate(today);
 
@@ -10,10 +10,18 @@ var isodate = toISODate(today);
 var $ = function(id) {
 	return document.getElementById(id);
 };
+
+// A function to return an array of elements of a certain class
+var $elementsByClass = function(className) {
+	return document.getElementsByClassName(className);
+}
+
+// A function to set the date box on the form
 var setDate = function() {
 	$("date_at_click").value = isodate;
 };
 
+// Formats the date string
 function toISODate(date) { // yyyy-mm-dd
   "use strict";
   var yyyy, mm, dd;
@@ -31,7 +39,7 @@ function toISODate(date) { // yyyy-mm-dd
   return "" + yyyy + "-" + mm + "-" + dd;
 };
 
-// capitalize first character of keyValue
+// Capitalize first character of keyValue
 var capFirst = function(lowerCaseWord) {
 
 	return lowerCaseWord.charAt(0).toUpperCase() + lowerCaseWord.substr(1);
@@ -46,24 +54,22 @@ var returnSum = function(numArray) {
 	return sum;
 };
 
-// A function to collect all the vote counts and return an Array
-// Ordered by candidate, of their vote counts.
+// Collect all the vote counts and return an Array
 var getCandidateNamesAndVotes = function() {
 	
-	// load ids for candidates
+	// Load ids for candidates
 	var candidateID = document.getElementsByClassName('candidate_name');
 	
 	// load votes
 	var voteID = document.getElementsByClassName('input_vote');
 	
-	// new associative array to return
+	// Array to return
 	var namesAndVotes = [];
 
-	// create associative array with candidate names as keys
+	// Create associative array with candidate names as keys
 	for (var x = 0; x < candidateID.length; x++ ) {
 			var keyValue = candidateID[x].value.toLowerCase();
 			namesAndVotes[keyValue] = voteID[x].value;
-			//alert("Candidate " + Object.keys(namesAndVotes)[x] + " has " + namesAndVotes[keyValue] + " Votes." );
 	}
 	
 	return namesAndVotes;
@@ -71,24 +77,23 @@ var getCandidateNamesAndVotes = function() {
 
 
 
-// A function which formats a number into a percentage (see notes for this computation)
+// Format a number into a percentage
 var toPercent = function(decimalNum) {
 	// To format a percentage
 	// Multiply the number by 100
 	decimalNum = decimalNum * 100;
 	
-	// convert to a fixed number of decimal places
+	// Convert to a fixed number of decimal places
 	decimalNum = decimalNum.toFixed(1);
 	
-	// add percent
+	// Add percent
 	decimalNum = decimalNum.concat("%");
 	
 	return decimalNum;
 	
 };
 
-// A function which takes an Array of numbers as a parameter, and returns an array of percentages
-// To compute a percentage from a vote count, simply divide the candidate's vote count by the total count
+// Take Array of numbers as a parameter, and return an array of percentages
 var returnPercentArray = function(numArray) {
 	var percentArray = [];
 	
@@ -100,40 +105,41 @@ var returnPercentArray = function(numArray) {
 	return percentArray;
 };
 
-
-// A function to:
+// outputs values to results area of form
 //	(a) collect all the counts; 
 //	(b) get the sum of all votes; 
 //	(c) compute the percentages for each candidate;
 //	(d) place that result on the form in the correct locations.
-var processVotes = function() {
-	
-	// set date box after each submit
-	setDate();
-	
-	// candidate statistics
+var outputResults = function() {
+	// Candidate statistics
 	var namesAndVotes = getCandidateNamesAndVotes();
 	var votePercents = returnPercentArray(namesAndVotes);
-	
-	// tally and set total text box
-	$("total_votes").firstChild.nodeValue = returnSum(namesAndVotes);
-	
 
-	// set candidate one name and vote percent
+	// Set DOM element ID arrays
 	var keyValueName;  // key for candidate names
 	var keyValuePercent; // key for candidate percent
-	var resultsID = document.getElementsByClassName('result_name'); // load candidate spanIDs
-	var percentsID = document.getElementsByClassName('percent_of_total'); // load percent spanIDs
-
-	// load names and percents into results section
+	var resultsID = $elementsByClass('result_name'); // load candidate spanIDs
+	var percentsID = $elementsByClass('percent_of_total'); // load percent spanIDs
+	
+	// Load names and percents into results section
 	for (var x = 0; x < percentsID.length; x++) {
-		// set candidate names in result section
-		keyValueName = capFirst(Object.keys(namesAndVotes)[x]);
+		// Set candidate names in result section
+		keyValueName = capFirst(Object.keys(namesAndVotes)[x]); // Retreive keyname and capitalize first letter
 		resultsID[x].firstChild.nodeValue = keyValueName;
-		// set candidate percents in result section
+		// Set candidate percents in result section
 		keyValuePercent = Object.keys(namesAndVotes)[x];
 		percentsID[x].firstChild.nodeValue = votePercents[keyValuePercent];
 	}
+	// Tally and set total text box
+	$("total_votes").firstChild.nodeValue = returnSum(namesAndVotes);
+};
+
+
+var processVotes = function() {
+	
+	// Set date box after each submit
+	setDate();
+	outputResults();
 
 };
 
