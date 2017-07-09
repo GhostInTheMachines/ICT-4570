@@ -12,9 +12,9 @@ var $ = function(id) {
 };
 
 // A function to return an array of elements of a certain class
-var $elementsByClass = function(className) {
+var $idArray = function(className) {
 	return document.getElementsByClassName(className);
-}
+};
 
 // A function to set the date box on the form
 var setDate = function() {
@@ -58,10 +58,10 @@ var returnSum = function(numArray) {
 var getCandidateNamesAndVotes = function() {
 	
 	// Load ids for candidates
-	var candidateID = document.getElementsByClassName('candidate_name');
+	var candidateID = $idArray('candidate_name');
 	
 	// load votes
-	var voteID = document.getElementsByClassName('input_vote');
+	var voteID = $idArray('input_vote');
 	
 	// Array to return
 	var namesAndVotes = [];
@@ -74,8 +74,6 @@ var getCandidateNamesAndVotes = function() {
 	
 	return namesAndVotes;
 };
-
-
 
 // Format a number into a percentage
 var toPercent = function(decimalNum) {
@@ -118,8 +116,8 @@ var outputResults = function() {
 	// Set DOM element ID arrays
 	var keyValueName;  // key for candidate names
 	var keyValuePercent; // key for candidate percent
-	var resultsID = $elementsByClass('result_name'); // load candidate spanIDs
-	var percentsID = $elementsByClass('percent_of_total'); // load percent spanIDs
+	var resultsID = $idArray('result_name'); // load candidate spanIDs
+	var percentsID = $idArray('percent_of_total'); // load percent spanIDs
 	
 	// Load names and percents into results section
 	for (var x = 0; x < percentsID.length; x++) {
