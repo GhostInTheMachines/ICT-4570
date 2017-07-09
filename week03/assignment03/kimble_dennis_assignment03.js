@@ -39,15 +39,6 @@ function toISODate(date) { // yyyy-mm-dd
   return "" + yyyy + "-" + mm + "-" + dd;
 };
 
-// Validation functions
-// Numeric checks
-var isValidNumber = function(theNumber) {
-	var isValid = true;
-	if (isNaN(theNumber)) isValid = false;
-	
-	return isValid;
-};
-
 // run validation 
 var validateInputs = function() { 
 	var isValid = true;
@@ -192,18 +183,14 @@ var outputResults = function() {
 	$("total_votes").firstChild.nodeValue = returnSum(namesAndVotes);
 };
 
-
+// main function
 var processVotes = function() {
-	
-	
-	
+		
 	// Set date box after each submit
 	if (validateInputs()){
 		setDate();
 		outputResults();
 	}
-
-
 };
 
 window.onload = function() {
