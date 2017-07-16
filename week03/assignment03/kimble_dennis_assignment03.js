@@ -4,6 +4,7 @@
 "use_strict";
 // Variables for date functions
 var today = new Date();
+var today = new Date();
 var isodate = toISODate(today);
 
 // A function to look up an HTML element by id and return the element
