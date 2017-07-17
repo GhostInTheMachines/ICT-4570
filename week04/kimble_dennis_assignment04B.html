@@ -11,53 +11,46 @@
 <title>kimble_dennis_assignment03</title>
 </head>
 <body>
-<main>
-<!-- Notice this size could be adjusted by changing to an h2
+<main> 
+  <!-- Notice this size could be adjusted by changing to an h2
 however, this would violate a11y formatting for screen readers -->
- <h1>Election Calculator</h1>
+  <h1>Election Calculator</h1>
   <form id="election_calculator">
     <fieldset>
       <legend>Candidates</legend>
       <label>Candidate 1</label>
       <input class="candidate_name" id="candidate1" type="text">
       <input class="candidate_party" id="party1" type="text">
-      </select><span class="error_message" id="candidate1_error">*</span>
-      <br>
+      <span class="error_message" id="candidate1_error">*</span> <br>
       <label>Candidate 2</label>
       <input class="candidate_name" id="candidate2" type="text">
       <input class="candidate_party" id="party2" type="text">
-      </select><span class="error_message" id="candidate2_error">*</span>
-      <br>
+      <span class="error_message" id="candidate2_error">*</span> <br>
       <label>Candidate 3</label>
       <input class="candidate_name" id="candidate3" type="text">
       <input class="candidate_party" id="party3" type="text">
-      </select><span class="error_message" id="candidate3_error">*</span>
+      <span class="error_message" id="candidate3_error">*</span>
     </fieldset>
     <fieldset>
       <legend>Votes</legend>
       <label>Votes for Candidate 1</label>
       <input class="input_vote" id="votes1" type="text">
-      		<span class="error_message" id="vote1_error">*</span>
-      <br>
+      <span class="error_message" id="vote1_error">*</span> <br>
       <label>Votes for Candidate 2</label>
       <input class="input_vote" id="votes2" type="text">
-      		<span class="error_message" id="vote2_error">*</span>
-      <br>
+      <span class="error_message" id="vote2_error">*</span> <br>
       <label>Votes for Candidate 3</label>
       <input class="input_vote" id="votes3" type="text">
-      		<span class="error_message" id="vote3_error">*</span>
+      <span class="error_message" id="vote3_error">*</span>
     </fieldset>
     <fieldset>
       <legend>Current Results</legend>
       <label>As of</label>
       <input id="date_at_click" type="text">
       <p>Total Votes counted&nbsp;<span id="total_votes">&nbsp;</span></p>
-      <p><span class="result_name" id="results_one">&nbsp;</span>&nbsp;Percentage&nbsp;
-      		<span class="percent_of_total" id="percent1">&nbsp;</span></p>
-      <p><span class="result_name" id="results_two">&nbsp;</span>&nbsp;Percentage&nbsp;
-      		<span class="percent_of_total" id="percent2">&nbsp;</span></p>
-      <p><span class="result_name" id="results_three">&nbsp;</span>&nbsp;Percentage&nbsp;
-      		<span class="percent_of_total" id="percent3">&nbsp;</span></p>
+      <p><span class="result_name" id="results_one">&nbsp;</span>&nbsp;Percentage&nbsp; <span class="percent_of_total" id="percent1">&nbsp;</span></p>
+      <p><span class="result_name" id="results_two">&nbsp;</span>&nbsp;Percentage&nbsp; <span class="percent_of_total" id="percent2">&nbsp;</span></p>
+      <p><span class="result_name" id="results_three">&nbsp;</span>&nbsp;Percentage&nbsp; <span class="percent_of_total" id="percent3">&nbsp;</span></p>
       <p><span></span></p>
     </fieldset>
   </form>

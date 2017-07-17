@@ -20,7 +20,7 @@ main {
 h1 {
 	/* updated font size here in order to use the proper heading number
 	for a11y screen readers */
-	font-size: 14pt;
+	font-size: 16pt;
 	color: #000000;
 }
 label {
