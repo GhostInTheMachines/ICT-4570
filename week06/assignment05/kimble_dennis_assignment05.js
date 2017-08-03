@@ -16,18 +16,37 @@ ctx.lineWidth = 5;
 ctx.strokeStyle = "rgb(0, 0, 0)";
 ctx.strokeRect(135, 275, 125, 125);*/
 
-var createBox = function(clickZone) {
+var calc = function getarea() {
+	"use strict";
+	var wid = $('wid').value;
+	var hgt = $('hgt').value;
+	alert("Height is: " + hgt + "Width is: " + wid);
+	var area = wid * hgt;
+	var perim = (wid * 2) + (hgt * 2);
+					
+	$('area').innerHTML = area;
+	$('perim').innerHTML = perim;
+};
+
+// *********************************************
+//  LOOK HERE! (This is the MouseMove Handler)
+// **********************************************
+var createClickBox = function(clickZone) {
 	"use strict";
 	var startX = 0, endX = 0;
 	var startY = 0, endY = 0;
 	
 	// create event handlers
+	// This is the hanler for the MouseDown movement
 	var mousedown = function() {
 		startX = event.x;
 		startY = event.y;
 		boxWidth = Math.abs(startX);
 		boxHeight = Math.abs(startY);
 	};
+	
+	// You can tell by the name but to state it explicitly
+	// This is the handler for the release of the mouse
 	var mouseup = function() {
 		endX = event.x;
 		endY = event.y;
@@ -38,9 +57,12 @@ var createBox = function(clickZone) {
 	};
 	
 	// attach event handlers
-	evt.attach(clickZone, "mousedown", mousedown);
-	evt.attach(clickZone, "mouseup", mouseup);	
+	clickZone.addEventListener("mousedown", mousedown);
+	clickZone.addEventListener("mouseup", mouseup);
 };
+// ******************************************************
+// END OF MOUSEMOVE HANDLER
+// *******************************************************
 
 // Form validation for width and height
 var validateDimensions = function() {
@@ -53,16 +75,10 @@ var validateDimensions = function() {
 	return outOfBound;
 };
 
-var calc = function getarea() {
-	"use strict";
-	var wid = document.getElementById('wid').value;
-	var hgt = document.getElementById('hgt').value;
-	var area = wid * hgt;
-	var perim = (wid * 2) + (hgt * 2);
-					
-	document.getElementById('area').innerHTML = area;
-	document.getElementById('perim').innerHTML = perim;
-};
+
 window.onload = function() {
-	createBox($("drawing"));
+	"use strict";
+	var btnCalc = $("do_calc");
+	createClickBox($("drawing"));
+	btnCalc.addEventListener("click", calc);
 };
