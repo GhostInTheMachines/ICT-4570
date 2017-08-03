@@ -68,17 +68,28 @@ var createClickBox = function(clickZone) {
 var validateDimensions = function() {
 	"use strict";
 	var outOfBound = false;
-	if ( document.getElementById("wid").value > 500 || 
-	     document.getElementById("wid").value < 0 ) { outOfBound = true; }	
-	if ( document.getElementById("hgt").value > 500 || 
-	     document.getElementById("hgt").value < 0 ) { outOfBound = true; }
-	return outOfBound;
+	if ( $("wid").value > 500 || 
+	     $("wid").value < 0 ) { outOfBound = true; }	
+	if ( $("hgt").value > 500 || 
+	     $("hgt").value < 0 ) { outOfBound = true; }
+	if (!outOfBound) { 
+		calc(); 
+	} else {$("error").innerHTML = "Values must be positive and not larger than the canvas";
+	}
 };
-
+// clear errors and inputs
+var clearForm = function() {
+	"use strict";
+	$("wid").value = "";
+	$("hgt").value = "";
+	$("error").innerHTML = "";
+};
 
 window.onload = function() {
 	"use strict";
 	var btnCalc = $("do_calc");
 	createClickBox($("drawing"));
-	btnCalc.addEventListener("click", calc);
+	btnCalc.addEventListener("click", validateDimensions);
+	$("wid").addEventListener("click", clearForm);
+	$("hgt").addEventListener("click", clearForm);
 };
