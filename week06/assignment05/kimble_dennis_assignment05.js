@@ -2,45 +2,74 @@
 *  Name: 		Dennis Kimble
 *  Filename: 	kimble_dennis_assignment05.js
 */
-	// store dimensions	
+var $ = function(id) { return document.getElementById(id);};
+// store globals
+var canvas = $("drawing");
+var ctx = canvas.getContext("2d");
 var boxWidth = 0;
 var boxHeight = 0;
+var startX = 0, startY = 0;
 
-var $ = function(id) { return document.getElementById(id);};
 
-/*var canvas = $("drawing");
-var ctx = canvas.getContext("2d");
-// ctx.beginPath();
-ctx.fillStyle = "red";
-ctx.lineWidth = 5;
-ctx.strokeStyle = "rgb(0, 0, 0)";
-ctx.strokeRect(135, 275, 125, 125);*/
+// calculate offset from top and left of document
+// This example from StackOverflow seemed to make the most sense
+// can be found at: https://stackoverflow.com/questions/5598743/finding-elements-position-relative-to-the-document
+function getCoords(elem) { // crossbrowser version
+    var box = elem.getBoundingClientRect();
 
+    var body = document.body;
+    var docEl = document.documentElement;
+
+    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+    var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+    var clientTop = docEl.clientTop || body.clientTop || 0;
+    var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+    var top  = box.top +  scrollTop - clientTop;
+    var left = box.left + scrollLeft - clientLeft;
+
+    return { top: Math.round(top), left: Math.round(left) };
+};
+
+// draw rectangle from inputs whether
+// they originate from keyboard or mouse
+var drawRectangle = function( width, height, x = 0, y = 0 ) {
+	
+	ctx.fillStyle = "red";
+	ctx.lineWidth = 5;
+	ctx.strokeStyle = "rgb(0,0,0)";
+	ctx.strokeRect( x, y, width, height);
+};
+
+// calculate area and perimeter of rectangle
 var calc = function getarea() {
 	"use strict";
 	var wid = $('wid').value;
 	var hgt = $('hgt').value;
-	alert("Height is: " + hgt + "Width is: " + wid);
 	var area = wid * hgt;
 	var perim = (wid * 2) + (hgt * 2);
+	
+	// draw rectangle
+	drawRectangle(wid, hgt, startX, startY);
 					
 	$('area').innerHTML = area;
 	$('perim').innerHTML = perim;
 };
 
-// *********************************************
-//  LOOK HERE! (This is the MouseMove Handler)
-// **********************************************
+// handle mouse move co-ordinates
 var createClickBox = function(clickZone) {
 	"use strict";
-	var startX = 0, endX = 0;
-	var startY = 0, endY = 0;
+	var endX = 0;
+	var endY = 0;
+	// Offset from top and left of document
+	var offsetTopLeft = getCoords(clickZone);
 	
 	// create event handlers
-	// This is the hanler for the MouseDown movement
+	// This is the handler for the MouseDown movement
 	var mousedown = function() {
-		startX = event.x;
-		startY = event.y;
+		startX = event.x - offsetTopLeft.left; // X position - left border
+		startY = event.y - offsetTopLeft.top;  // Y position - top border
 		boxWidth = Math.abs(startX);
 		boxHeight = Math.abs(startY);
 	};
@@ -48,8 +77,8 @@ var createClickBox = function(clickZone) {
 	// You can tell by the name but to state it explicitly
 	// This is the handler for the release of the mouse
 	var mouseup = function() {
-		endX = event.x;
-		endY = event.y;
+		endX = event.x - offsetTopLeft.left;
+		endY = event.y - offsetTopLeft.top;
 		boxWidth += Math.abs(endX);
 		boxHeight += Math.abs(endY);
 		$("wid").value = boxWidth;
@@ -60,9 +89,7 @@ var createClickBox = function(clickZone) {
 	clickZone.addEventListener("mousedown", mousedown);
 	clickZone.addEventListener("mouseup", mouseup);
 };
-// ******************************************************
-// END OF MOUSEMOVE HANDLER
-// *******************************************************
+
 
 // Form validation for width and height
 var validateDimensions = function() {
@@ -83,6 +110,7 @@ var clearForm = function() {
 	$("wid").value = "";
 	$("hgt").value = "";
 	$("error").innerHTML = "";
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
 window.onload = function() {
