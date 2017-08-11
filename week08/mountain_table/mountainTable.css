@@ -1,0 +1,18 @@
+/*
+ * mountainTable.css
+*/
+.mountain {
+ display: block; 
+ width: 600px ;
+ font-size: 12pt; 
+ padding: 12px; 
+ margin: 4px; 
+ border-width: 3px;
+ border-style:groove;
+ border-color: black;
+ background: lightblue; 
+}
+th { font-family: 'Times New Roman', times, serif; font-size: 16pt; font-weight: bold; }
+td { border-style: groove; border-color: blue; border-width:3px;  padding: 4px; }
+.name,.height,.country { font-family: roman, 'times new roman', times, serif; font-size: 16pt; font-weight: normal;  }
+.height { text-align: right }
