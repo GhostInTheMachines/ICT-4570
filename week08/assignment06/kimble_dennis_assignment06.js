@@ -1,7 +1,8 @@
-// Adapted script from Presidents example at url: http://schwartzcomputer.com/ICT4570/Resources/president.html
+// Table building script Adapted from mountain example at url: http://schwartzcomputer.com/ICT4570/Resources/mountainTable.html
+//  XMLHttpRequest script adapted from Presidents example at url: http://schwartzcomputer.com/ICT4570/Resources/president.html
 // Updated by: Dennis Kimble
 // File: kimble_dennis_assignment06.js
-var properties = [ 'name','height','country'];
+
 var capitalize = function(s) {
  "use strict";
  return s.charAt(0).toUpperCase() + s.slice(1);
@@ -54,9 +55,9 @@ var buildTable = function (data, parent, attr, tClass) {
 function handleJSONResponse(data) {
 	"use strict";
 	console.dir(data);
-	var parent=document.getElementById('mountain');
+	var parent=document.getElementById('presidents');
 	var attributes = ['name', 'date', 'took_office', 'left_office'];
-	buildTable(data.presidents.president, parent, attributes, 'mountain');
+	buildTable(data.presidents.president, parent, attributes, 'presidents');
 }
 
 var ajx = function () {
