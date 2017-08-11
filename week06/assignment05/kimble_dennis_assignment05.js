@@ -16,23 +16,27 @@ ctx.strokeRect(135, 275, 125, 125);*/
 
 var createClickBox = function(clickZone) {
 	"use strict";
+	// console.dir(clickZone);
 	// store dimensions
 	var boxWidth = 0;
 	var boxHeight = 0;
 	
+	
 	// create event handlers
 	var mousedown = function() {
-		alert("Mouse Is Clicked");	
+		console.dir(event);  // looking for the event
+		startX = event.clientX;
+		startY = event.clientY;
+		alert("MouseClick at \tX: " + startX + "\n\t\t\t\tY: " + startY);	
 	};
 	var mouseup = function() {
-		alert("Mouse Is Released");
+		//startY = clickZone.clientY;
+		//alert("Mouse Is Released at: " + startY);
 	};
 	
 	// attach event handlers
 	evt.attach(clickZone, "mousedown", mousedown);
-	evt.attach(clickZone, "mouseup", mouseup);
-	
-	
+	//evt.attach(clickZone, "mouseup", mouseup);	
 };
 // Form validation for width and height
 var validateDimensions = function() {
