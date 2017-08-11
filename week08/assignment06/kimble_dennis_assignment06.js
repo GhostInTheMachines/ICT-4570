@@ -1,3 +1,6 @@
+// Adapted script from Presidents example at url: http://schwartzcomputer.com/ICT4570/Resources/president.html
+// Updated by: Dennis Kimble
+// File: kimble_dennis_assignment06.js
 var properties = [ 'name','height','country'];
 var capitalize = function(s) {
  "use strict";
@@ -48,16 +51,6 @@ var buildTable = function (data, parent, attr, tClass) {
  	parent.appendChild(table);
 };
 
-//var MOUNTAINS = [
-//    { name: 'Kilimanjaro',    height: 5895, country: 'Tanzania' },
-//    { name: 'Everest',        height: 8848, country: 'Nepal'},
-//    { name: 'Mount Fuji',     height: 3776, country: 'Japan'},
-//    { name: 'Mont Blanc',     height: 4808, country: 'Italy/France' },
-//    { name: 'Vaalserberg',    height: 323,  country: 'Netherlands'},
-//    { name: 'Mount McKinley', height: 6168, country: 'United States'},
-//    { name: 'Popocatepetl',   height: 5465, country: 'Mexico'}
-//];
-
 function handleJSONResponse(data) {
 	"use strict";
 	console.dir(data);
@@ -88,10 +81,3 @@ var ajx = function () {
 	xmlhttp.send();
 };
 document.body.onload = ajx;
-
-//var parent=document.getElementById('mountain');
-//var attributes = [ 'name', 'height', 'country' ];
-//document.body.onload=function() {
-// "use strict";
-//    buildTable(MOUNTAINS,parent,attributes,'mountain');
-//};
