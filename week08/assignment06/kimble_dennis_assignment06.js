@@ -48,19 +48,50 @@ var buildTable = function (data, parent, attr, tClass) {
  	parent.appendChild(table);
 };
 
-var MOUNTAINS = [
-    { name: 'Kilimanjaro',    height: 5895, country: 'Tanzania' },
-    { name: 'Everest',        height: 8848, country: 'Nepal'},
-    { name: 'Mount Fuji',     height: 3776, country: 'Japan'},
-    { name: 'Mont Blanc',     height: 4808, country: 'Italy/France' },
-    { name: 'Vaalserberg',    height: 323,  country: 'Netherlands'},
-    { name: 'Mount McKinley', height: 6168, country: 'United States'},
-    { name: 'Popocatepetl',   height: 5465, country: 'Mexico'}
-];
+//var MOUNTAINS = [
+//    { name: 'Kilimanjaro',    height: 5895, country: 'Tanzania' },
+//    { name: 'Everest',        height: 8848, country: 'Nepal'},
+//    { name: 'Mount Fuji',     height: 3776, country: 'Japan'},
+//    { name: 'Mont Blanc',     height: 4808, country: 'Italy/France' },
+//    { name: 'Vaalserberg',    height: 323,  country: 'Netherlands'},
+//    { name: 'Mount McKinley', height: 6168, country: 'United States'},
+//    { name: 'Popocatepetl',   height: 5465, country: 'Mexico'}
+//];
 
-var parent=document.getElementById('mountain');
-var attributes = [ 'name', 'height', 'country' ];
-document.body.onload=function() {
- "use strict";
-    buildTable(MOUNTAINS,parent,attributes,'mountain');
+function handleJSONResponse(data) {
+	"use strict";
+	console.dir(data);
+	var parent=document.getElementById('mountain');
+	var attributes = ['name', 'date', 'took_office', 'left_office'];
+	buildTable(data.presidents.president, parent, attributes, 'mountain');
+}
+
+var ajx = function () {
+	"use strict";
+	var xmlhttp = new XMLHttpRequest(),
+		text,
+		data;
+	// Prepare and setup response handler
+	xmlhttp.onreadystatechange = function () {
+		document.getElementById('status').innerHTML = String(xmlhttp.readyState);
+		if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+			text = xmlhttp.responseText;
+			data = JSON.parse(text);
+			console.log(data.presidents.date);
+			handleJSONResponse(data);
+			// document.getElementById("content").innerHTML = xmlhttp.responseText;
+		}
+	};
+	// Set up the request
+	xmlhttp.open("GET", "http://schwartzcomputer.com/ICT4570/Resources/USPresidents.json");
+	// Perform the request
+	xmlhttp.send();
 };
+document.body.onload = ajx;
+
+//var parent=document.getElementById('mountain');
+//var attributes = [ 'name', 'height', 'country' ];
+//document.body.onload=function() {
+// "use strict";
+//    buildTable(MOUNTAINS,parent,attributes,'mountain');
+//};
