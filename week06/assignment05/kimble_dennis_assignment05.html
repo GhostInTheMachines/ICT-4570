@@ -2,18 +2,7 @@
 <!--
 	Name:  		Dennis Kimble
 	Filename: kimble_dennis_assignment05.html
-	
-	I had a difficult time with this assignment because from my perspective the hardest
-	concepts of the course were all in this one assignment.  I am they type of learner
-	that needs to focus on the concepts by first reading the book and then working through the individual
-	examples until I get a full understanding of how things work. This assignment should really be
-	three assignments building confidence with each one until all topics are covered. Throwing closures, tricky event handlers
-	and canvas all in one gave me to many topics to consider which made it difficult for me to see a clear path
-	of where to begin.  I have taught many journeyman in my thirty year career and I just don't feel like
-	this is the proper way to teach complex topics.
-	
-	In the end I am unsure why my event handler is not seeing the node that is being passed to it but at this point it would
-	not make a difference if I figured it out.
+
 -->
 <html>
 	<head>
@@ -26,20 +15,20 @@
       	<label for="wid">Width:</label>
       	<input id="wid" type="number">
       	<label for="hgt">Height:</label>
-        <input id="hgt" type="number">
+        <input id="hgt" type="number"><br>
+        <span id="error">&nbsp;</span>
         <br>
 		<label for="area">Area:</label>
-      	<output id="area"></output>
+      	<output id="area">&nbsp;</output>
       	<br>
       	<label for="perim">Perimeter:</label>
-      	<output id="perim"></output>
+      	<output id="perim">&nbsp;</output>
       	<br>
       	<input type="button" id="do_calc" value="Get Area">
     </form>
     <canvas id="drawing" width="500" height="500">
     	No canvas support here.
     </canvas>
-    <script type="text/javascript" src="library_event.js"></script>
 	<script src="kimble_dennis_assignment05.js"></script>
 	</body>
 </html>
