@@ -1,0 +1,33 @@
+/*
+* 	Name:  		Dennis Kimble
+*	Filename: kimble_dennis_assignment06.css
+*/
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0 2em 1em;
+}
+
+.presidents {
+ display: block; 
+ width: 600px ;
+ font-size: 13pt; 
+ padding: 12px; 
+ margin: 4px; 
+ border-width: 3px;
+ border-style:groove;
+ border-color: black;
+ background: lightblue; 
+}
+th { font-family: 'Times New Roman', times, serif; font-size: 16pt; font-weight: bold; }
+td { 
+	border-style: groove; 
+	border-color: blue; 
+	border-width:3px;  
+	padding-left: 10px; 
+	padding-right: 10px; 
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.name,.height,.country { font-family: roman, 'times new roman', times, serif; font-size: 16pt; font-weight: normal;  }
+.height { text-align: right }

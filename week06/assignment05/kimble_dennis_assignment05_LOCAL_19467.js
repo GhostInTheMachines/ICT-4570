@@ -3,24 +3,67 @@
 *  Filename: 	kimble_dennis_assignment05.js
 */
 var $ = function(id) { return document.getElementById(id);};
-// canvas globals
-var startX = 0, endX = 0;
-var startY = 0, endY = 0;
-/*var canvas = $("drawing");
+// store globals
+var canvas = $("drawing");
 var ctx = canvas.getContext("2d");
-// ctx.beginPath();
-ctx.fillStyle = "red";
-ctx.lineWidth = 5;
-ctx.strokeStyle = "rgb(0, 0, 0)";
-ctx.strokeRect(135, 275, 125, 125);*/
+var boxWidth = 0;
+var boxHeight = 0;
+var startX = 0, startY = 0;
 
+
+// calculate offset from top and left of document
+// This example from StackOverflow seemed to make the most sense
+// can be found at: https://stackoverflow.com/questions/5598743/finding-elements-position-relative-to-the-document
+function getCoords(elem) { // crossbrowser version
+    var box = elem.getBoundingClientRect();
+
+    var body = document.body;
+    var docEl = document.documentElement;
+
+    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+    var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+    var clientTop = docEl.clientTop || body.clientTop || 0;
+    var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+    var top  = box.top +  scrollTop - clientTop;
+    var left = box.left + scrollLeft - clientLeft;
+
+    return { top: Math.round(top), left: Math.round(left) };
+};
+
+// draw rectangle from inputs whether
+// they originate from keyboard or mouse
+var drawRectangle = function( width, height, x = 0, y = 0 ) {
+	
+	ctx.fillStyle = "red";
+	ctx.lineWidth = 5;
+	ctx.strokeStyle = "rgb(0,0,0)";
+	ctx.strokeRect( x, y, width, height);
+};
+
+// calculate area and perimeter of rectangle
+var calc = function getarea() {
+	"use strict";
+	var wid = $('wid').value;
+	var hgt = $('hgt').value;
+	var area = wid * hgt;
+	var perim = (wid * 2) + (hgt * 2);
+	
+	// draw rectangle
+	drawRectangle(wid, hgt, startX, startY);
+					
+	$('area').innerHTML = area;
+	$('perim').innerHTML = perim;
+};
+
+// handle mouse move co-ordinates
 var createClickBox = function(clickZone) {
 	"use strict";
-	// console.dir(clickZone);
-	// store dimensions
-	var boxWidth = 0;
-	var boxHeight = 0;
-	
+	var endX = 0;
+	var endY = 0;
+	// Offset from top and left of document
+	var offsetTopLeft = getCoords(clickZone);
 	
 	// create event handlers
 	// This is the handler for the MouseDown movement
