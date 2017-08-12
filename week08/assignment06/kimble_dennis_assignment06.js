@@ -6,6 +6,8 @@
 // Name: Dennis Kimble
 // File: kimble_dennis_assignment06.js
 
+var $ = function(id) { return document.getElementById(id); };
+
 // Capitalize first character of single word
 // or both words if separated by underscores
 var capitalize = function(s) {
@@ -18,7 +20,14 @@ var capitalize = function(s) {
 	 return firstHalf.charAt(0).toUpperCase() + firstHalf.slice(1) + " " +
 	 		lastHalf.charAt(0).toUpperCase() + lastHalf.slice(1);
  }
-};	  
+};
+
+// Check for empty state
+var nonEmpty = function(textField) {
+	"use strict";
+	return textField.value !== '';
+};
+
 var buildHeader = function(titles,trAtt,thAtt) {
  "use strict";
   var i, th, len, tr = document.createElement('tr');
@@ -67,8 +76,17 @@ var buildTable = function (data, parent, attr, tClass) {
 function handleJSONResponse(data) {
 	"use strict";
 	console.dir(data);
-	var parent=document.getElementById('presidents');
+	var parent = $('presidents');
 	var attributes = ['name', 'date', 'took_office', 'left_office'];
+	var searchString = nonEmpty($('name_input'))? $('name_input').value : $('office_input').value ;
+	console.log("Search String is: " + searchString);
+	// if name input exists search by name
+	// if Office input exists search Took Office and Left Office
+//	if (searchString) {
+//		buildTable(data.presidents.president, parent, attributes, 'presidents');
+//	}
+	
+	
 	buildTable(data.presidents.president, parent, attributes, 'presidents');
 }
 
