@@ -30,22 +30,50 @@ var clear = function() {
 
 var isNotBlank = function(inputBox) {
 	"use strict";
-	console.log("Object evaluated: " + inputBox.id);
+	//console.log("Object evaluated: " + inputBox.id);
 	return inputBox.value !== '';
 };
 
 
 // select a subset of presidents that match search criteria
-var getPresidents = function(data, t){
+var getPresidents = function(data, t, dateString){
 	"use strict";
-	var fullArrayOfPresidents = data.presidents.president;
+	// extract full array of presidents
+	var fullArrayOfPresidents = Array.from(data.presidents.president);
+	var testyArrayOfPresidents = Array.from(data.presidents.president);
+	console.dir(testyArrayOfPresidents);
+	// create three arrays to collect search results
+	var arrayOne	= [];	// holds presidents matching the name string
+	var arrayTwo	= [];	// holds presidents matchint the took_office property
+	var arrayThree	= [];	// holds presidents matching the left_office property
 	var selectArrayOfPresidents = [];
-	console.dir(fullArrayOfPresidents);
-	// console.dir(selectArrayOfPresidents);
-	selectArrayOfPresidents = fullArrayOfPresidents.filter(
-		function(fullArrayOfPresidents) {
-			return fullArrayOfPresidents.name.match(t);} );
-	console.dir(selectArrayOfPresidents);
+	
+	// if t is not -1 search president names
+	if (t !== '-1'){	
+		arrayOne = fullArrayOfPresidents.filter(
+			function(fullArrayOfPresidents) {
+				return fullArrayOfPresidents.name.match(t);} );
+	}	
+	// if dateString is not -1 search took office properties
+	if (dateString !== '-1'){	
+		arrayTwo = fullArrayOfPresidents.filter(
+			function(fullArrayOfPresidents) {
+				console.dir(fullArrayOfPresidents.took_office); // object has value here but not below
+				return fullArrayOfPresidents.took_office.match(dateString);} );
+	}
+	
+	// this function would have searched the left office but it has a strange bug that I didn't
+	// have time to find
+//	// if dateString is not -1 search left office properties
+//	if (dateString !== '-1'){
+//		console.dir(testyArrayOfPresidents.left_office); // can't figure out why this is undefined
+//		arrayThree = testyArrayOfPresidents.filter(
+//			function(testyArrayOfPresidents) {
+//				return testyArrayOfPresidents.left_office.match(dateString);} );
+//	}	
+	
+	// join any president arrays that have been returned
+	selectArrayOfPresidents = arrayOne.concat(arrayTwo, arrayThree);
 	
 	return selectArrayOfPresidents;
 };
@@ -106,7 +134,7 @@ function handleJSONResponse(data) {
 	if (parent.getElementsByTagName('table').length > 0) {
 		clear();
 	}
-	var attributes = ['name', 'date', 'took_office', 'left_office'];
+	var attributes = ['number', 'name', 'date', 'took_office', 'left_office'];
 	// if a valid search has been performed, send the results
 	// else send the full dataset
 	buildTable( (isSelectArray ? data : data.presidents.president), 
@@ -127,11 +155,12 @@ var ajx = function () {
 			console.log(data.presidents.date);
 			
 			if ( isNotBlank( $('name_input')) ) {
-				handleJSONResponse(getPresidents(data, $('name_input').value ));
-			}else { handleJSONResponse(data); }
-			
-			// handleJSONResponse(getPresidents(data));
-			// document.getElementById("content").innerHTML = xmlhttp.responseText;
+				handleJSONResponse(getPresidents(data, $('name_input').value, // send the president search string
+				(isNotBlank( $('office_input').value ) )? $('office_input').value : // if Took Office has a value send it
+				'-1' )); // if Took Office is blank send the no search flag
+			}else if (isNotBlank($('office_input')) ){
+				handleJSONResponse(getPresidents(data, '-1', $('office_input').value ));
+			} else { handleJSONResponse(data); }
 		}
 		
 	};
@@ -144,8 +173,7 @@ var ajx = function () {
 window.onload = function() {
 	"use strict";
 	var btnSearch = $("search");
-	// var btnReset = $("reset");
+	var btnReset = $("reset");
 	btnSearch.addEventListener('click', ajx);
-	//btnReset.addEventListener("click", clear());
-	//btnReset.preventDefault();
+	btnReset.addEventListener("click", clear);
 };
