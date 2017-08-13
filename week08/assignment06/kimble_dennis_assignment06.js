@@ -22,26 +22,33 @@ var capitalize = function(s) {
  }
 };
 
-// Check for empty state
-var isBlank = function(textField) {
-	"use strict";
-	return textField.value !== '';
-};
-
-var validName = function(checkName) {
-	return 
-}
-
-var validDate = function(errorMessageNode) {
-	var isValid = true;
-	var officeInput = $('office_input');
-
-};
-
+// clears dom of legacy data
 var clear = function() {
-	
+	"use strict";
+	$('presidents').removeChild($("presidents").childNodes[0]);
 };
 
+var isNotBlank = function(inputBox) {
+	"use strict";
+	console.log("Object evaluated: " + inputBox.id);
+	return inputBox.value !== '';
+};
+
+
+// select a subset of presidents that match search criteria
+var getPresidents = function(data, t){
+	"use strict";
+	var fullArrayOfPresidents = data.presidents.president;
+	var selectArrayOfPresidents = [];
+	console.dir(fullArrayOfPresidents);
+	// console.dir(selectArrayOfPresidents);
+	selectArrayOfPresidents = fullArrayOfPresidents.filter(
+		function(fullArrayOfPresidents) {
+			return fullArrayOfPresidents.name.match(t);} );
+	console.dir(selectArrayOfPresidents);
+	
+	return selectArrayOfPresidents;
+};
 var buildHeader = function(titles,trAtt,thAtt) {
  "use strict";
   var i, th, len, tr = document.createElement('tr');
@@ -90,10 +97,20 @@ var buildTable = function (data, parent, attr, tClass) {
 
 function handleJSONResponse(data) {
 	"use strict";
+	// test if data is raw json or selected president array
+	var isSelectArray = Array.isArray(data);
+	// console.log("isSelectArray value is: " + isSelectArray);
 	var parent = $('presidents');
-	var attributes = ['name', 'date', 'took_office', 'left_office'];
 	
-	buildTable(data.presidents.president, parent, attributes, 'presidents');
+	// test if parent has a table attached to it
+	if (parent.getElementsByTagName('table').length > 0) {
+		clear();
+	}
+	var attributes = ['name', 'date', 'took_office', 'left_office'];
+	// if a valid search has been performed, send the results
+	// else send the full dataset
+	buildTable( (isSelectArray ? data : data.presidents.president), 
+			   parent, attributes, 'presidents');
 }
 
 var ajx = function () {
@@ -108,15 +125,12 @@ var ajx = function () {
 			text = xmlhttp.responseText;
 			data = JSON.parse(text);
 			console.log(data.presidents.date);
-			var newArrayOfPresidents = data.presidents.president;
-			var selectArrayOfPresidents = [];
-			console.dir(newArrayOfPresidents);
-			// console.dir(selectArrayOfPresidents);
-			selectArrayOfPresidents = newArrayOfPresidents.filter(
-				function(newArrayOfPresidents) {
-					return newArrayOfPresidents.name.match('George');} );
-			console.dir(selectArrayOfPresidents);
-			handleJSONResponse(data);
+			
+			if ( isNotBlank( $('name_input')) ) {
+				handleJSONResponse(getPresidents(data, $('name_input').value ));
+			}else { handleJSONResponse(data); }
+			
+			// handleJSONResponse(getPresidents(data));
 			// document.getElementById("content").innerHTML = xmlhttp.responseText;
 		}
 		
@@ -129,9 +143,9 @@ var ajx = function () {
 
 window.onload = function() {
 	"use strict";
-	ajx();
 	var btnSearch = $("search");
-	var btnReset = $("reset");
+	// var btnReset = $("reset");
+	btnSearch.addEventListener('click', ajx);
 	//btnReset.addEventListener("click", clear());
 	//btnReset.preventDefault();
 };
