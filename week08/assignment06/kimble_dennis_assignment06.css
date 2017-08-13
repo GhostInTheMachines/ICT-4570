@@ -31,3 +31,4 @@ td {
 }
 .name,.height,.country { font-family: roman, 'times new roman', times, serif; font-size: 16pt; font-weight: normal;  }
 .height { text-align: right }
+.error {color: red}

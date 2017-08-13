@@ -23,9 +23,23 @@ var capitalize = function(s) {
 };
 
 // Check for empty state
-var nonEmpty = function(textField) {
+var isBlank = function(textField) {
 	"use strict";
 	return textField.value !== '';
+};
+
+var validName = function(checkName) {
+	return 
+}
+
+var validDate = function(errorMessageNode) {
+	var isValid = true;
+	var officeInput = $('office_input');
+
+};
+
+var clear = function() {
+	
 };
 
 var buildHeader = function(titles,trAtt,thAtt) {
@@ -73,19 +87,11 @@ var buildTable = function (data, parent, attr, tClass) {
  	parent.appendChild(table);
 };
 
+
 function handleJSONResponse(data) {
 	"use strict";
-	console.dir(data);
 	var parent = $('presidents');
 	var attributes = ['name', 'date', 'took_office', 'left_office'];
-	var searchString = nonEmpty($('name_input'))? $('name_input').value : $('office_input').value ;
-	console.log("Search String is: " + searchString);
-	// if name input exists search by name
-	// if Office input exists search Took Office and Left Office
-//	if (searchString) {
-//		buildTable(data.presidents.president, parent, attributes, 'presidents');
-//	}
-	
 	
 	buildTable(data.presidents.president, parent, attributes, 'presidents');
 }
@@ -102,9 +108,18 @@ var ajx = function () {
 			text = xmlhttp.responseText;
 			data = JSON.parse(text);
 			console.log(data.presidents.date);
+			var newArrayOfPresidents = data.presidents.president;
+			var selectArrayOfPresidents = [];
+			console.dir(newArrayOfPresidents);
+			// console.dir(selectArrayOfPresidents);
+			selectArrayOfPresidents = newArrayOfPresidents.filter(
+				function(newArrayOfPresidents) {
+					return newArrayOfPresidents.name.match('George');} );
+			console.dir(selectArrayOfPresidents);
 			handleJSONResponse(data);
 			// document.getElementById("content").innerHTML = xmlhttp.responseText;
 		}
+		
 	};
 	// Set up the request
 	xmlhttp.open("GET", "http://schwartzcomputer.com/ICT4570/Resources/USPresidents.json");
@@ -116,7 +131,7 @@ window.onload = function() {
 	"use strict";
 	ajx();
 	var btnSearch = $("search");
-	btnSearch.addEventListener("click", ajx);
-	// $("wid").addEventListener("click", clearForm);
-	// $("hgt").addEventListener("click", clearForm);
+	var btnReset = $("reset");
+	//btnReset.addEventListener("click", clear());
+	//btnReset.preventDefault();
 };
