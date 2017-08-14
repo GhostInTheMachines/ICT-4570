@@ -39,9 +39,8 @@ var isNotBlank = function(inputBox) {
 var getPresidents = function(data, t, dateString){
 	"use strict";
 	// extract full array of presidents
-	var fullArrayOfPresidents = Array.from(data.presidents.president);
-	var testyArrayOfPresidents = Array.from(data.presidents.president);
-	console.dir(testyArrayOfPresidents);
+	var fullArrayOfPresidents = Array.from(data.presidents.president)
+
 	// create three arrays to collect search results
 	var arrayOne	= [];	// holds presidents matching the name string
 	var arrayTwo	= [];	// holds presidents matchint the took_office property
@@ -55,22 +54,11 @@ var getPresidents = function(data, t, dateString){
 				return fullArrayOfPresidents.name.match(t);} );
 	}	
 	// if dateString is not -1 search took office properties
-	if (dateString !== '-1'){	
+	if ( dateString !== '-1') {	
 		arrayTwo = fullArrayOfPresidents.filter(
 			function(fullArrayOfPresidents) {
-				console.dir(fullArrayOfPresidents.took_office); // object has value here but not below
 				return fullArrayOfPresidents.took_office.match(dateString);} );
 	}
-	
-	// this function would have searched the left office but it has a strange bug that I didn't
-	// have time to find
-//	// if dateString is not -1 search left office properties
-//	if (dateString !== '-1'){
-//		console.dir(testyArrayOfPresidents.left_office); // can't figure out why this is undefined
-//		arrayThree = testyArrayOfPresidents.filter(
-//			function(testyArrayOfPresidents) {
-//				return testyArrayOfPresidents.left_office.match(dateString);} );
-//	}	
 	
 	// join any president arrays that have been returned
 	selectArrayOfPresidents = arrayOne.concat(arrayTwo, arrayThree);
@@ -126,13 +114,13 @@ var buildTable = function (data, parent, attr, tClass) {
 function handleJSONResponse(data) {
 	"use strict";
 	// test if data is raw json or selected president array
+	// could also send full list if data length is zero
 	var isSelectArray = Array.isArray(data);
-	// console.log("isSelectArray value is: " + isSelectArray);
 	var parent = $('presidents');
 	
 	// test if parent has a table attached to it
 	if (parent.getElementsByTagName('table').length > 0) {
-		clear();
+		clear(); // delete current table to allow for new table
 	}
 	var attributes = ['number', 'name', 'date', 'took_office', 'left_office'];
 	// if a valid search has been performed, send the results
@@ -148,18 +136,18 @@ var ajx = function () {
 		data;
 	// Prepare and setup response handler
 	xmlhttp.onreadystatechange = function () {
-		document.getElementById('status').innerHTML = String(xmlhttp.readyState);
+		// document.getElementById('status').innerHTML = String(xmlhttp.readyState);
 		if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 			text = xmlhttp.responseText;
 			data = JSON.parse(text);
 			console.log(data.presidents.date);
 			
-			if ( isNotBlank( $('name_input')) ) {
+			if ( isNotBlank( $('name_input') ) ) {
 				handleJSONResponse(getPresidents(data, $('name_input').value, // send the president search string
-				(isNotBlank( $('office_input').value ) )? $('office_input').value : // if Took Office has a value send it
+				(isNotBlank( $('office_input') ) )? $('office_input').value : // if Took Office has a value send it
 				'-1' )); // if Took Office is blank send the no search flag
 			}else if (isNotBlank($('office_input')) ){
-				handleJSONResponse(getPresidents(data, '-1', $('office_input').value ));
+				handleJSONResponse( (getPresidents(data, '-1', $('office_input').value) ) );
 			} else { handleJSONResponse(data); }
 		}
 		
